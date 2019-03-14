@@ -1,0 +1,38 @@
+<!--Homework 4: MBTA Bus Data Collection & Mapping-->
+<!-- Author: Dipo Doherty-->
+<!--Question 5: Dropdowns for Unique Bus IDs-->
+
+<!DOCTYPE html>
+<html>
+
+    <script src="db2.js"></script>
+
+    <h1>Select A Bus</h1>
+
+    <select id="selectBus">
+            <option>Choose a bus</option>
+    </select>
+
+    <script>
+        //Define Ids array and assign select => selectBus id in HTML
+       var select = document.getElementById("selectBus");
+        var Ids = [];
+     
+       vehicles.forEach( vehicles => {
+        Ids.push(vehicles.id);
+       })
+       
+       UniqueIds = [...new Set(Ids)]
+       
+       //Loop through UniqueIds array and populate dropdown
+       for(var i = 0; i < UniqueIds.length; i++){
+            var opt = UniqueIds[i];
+            var el = document.createElement("option");
+            el.textContent = opt; //define text content of element to be UniqueIds elements
+            el.value = opt;
+            select.appendChild(el)
+       }
+
+    </script>
+
+</html>

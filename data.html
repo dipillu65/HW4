@@ -1,0 +1,57 @@
+<!--Homework 4: MBTA Bus Data Collection & Mapping-->
+<!-- Author: Dipo Doherty-->
+<!--Question 6: Dropdowns for Unique Bus IDs & Display relevant Data -->
+
+<!DOCTYPE html>
+<html>
+
+    <script src="db2.js"></script>
+
+    <h1>Select A Bus</h1>
+
+    <select id="selectBus" onchange="displayData()">
+            <option>Choose a bus</option>
+    </select>
+
+    <p id= "data"></p>
+
+    <script>
+        //Define Ids array and assign select => selectBus id in HTML
+       var select = document.getElementById("selectBus");
+        var Ids = [];
+     
+       vehicles.forEach( vehicles => {
+        Ids.push(vehicles.id);
+       })
+       
+       UniqueIds = [...new Set(Ids)]
+       
+       //Loop through UniqueIds array and populate dropdown
+       for(var i = 0; i < UniqueIds.length; i++){
+            var opt = UniqueIds[i];
+            var el = document.createElement("option");
+            el.textContent = opt; //define text content of element to be UniqueIds elements
+            el.value = opt;
+            select.appendChild(el)
+       }
+
+       function displayData(){
+           printOut = []
+       //Get selected option from dropdown
+       var selectedID = document.getElementById('selectBus').options[document.getElementById('selectBus').selectedIndex].value;
+        console.log(selectedID)
+       //Function to filter out revelant data from json file
+            vehicles.forEach( vehicle => {
+                    if (vehicle.id === selectedID){printOut.push(vehicle)} 
+            });
+       
+        console.log(JSON.stringify(printOut))
+
+        //Print out into document
+    
+        document.getElementById('data').innerHTML = JSON.stringify(printOut)
+       }
+
+    </script>
+
+</html>
